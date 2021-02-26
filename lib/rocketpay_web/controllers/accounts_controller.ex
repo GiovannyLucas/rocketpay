@@ -12,4 +12,12 @@ defmodule RocketpayWeb.AccountsController do
       |> render("update.json", account: account)
     end
   end
+
+  def withdraw(connection, params) do
+    with {:ok, %Account{} = account} <- Rocketpay.withdraw(params) do
+      connection
+      |> put_status(:created)
+      |> render("update.json", account: account)
+    end
+  end
 end
